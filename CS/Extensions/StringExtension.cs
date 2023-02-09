@@ -20,7 +20,7 @@ namespace CS.Extensions
             return sb.ToString();
         }
 
-        private static byte[] GetHash(string inputString)
+        public static byte[] GetHash(string inputString)
         {
             using (HashAlgorithm algorithm = SHA256.Create())
                 return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
