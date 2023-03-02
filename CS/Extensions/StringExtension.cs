@@ -26,7 +26,7 @@ namespace CS.Extensions
                 return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
         }
 
-          public static (string, int) MaxListLines(this string s, int maxLines = 5)
+        public static (string, int) MaxListLines(this string s, int maxLines = 5)
         {
             var arr = s.Split('\n');
 
@@ -54,6 +54,16 @@ namespace CS.Extensions
                 return ($"{s.Substring(0, maxlength)} {addedVal}", arr.Length);
             }
         }
+
+         public static string GetHashString(this string s)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(s.ToLower().Trim()))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
+        }
+        
     }
 
 }
