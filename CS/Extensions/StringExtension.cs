@@ -25,6 +25,35 @@ namespace CS.Extensions
             using (HashAlgorithm algorithm = SHA256.Create())
                 return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
         }
+
+          public static (string, int) MaxListLines(this string s, int maxLines = 5)
+        {
+            var arr = s.Split('\n');
+
+            string addedVal = "";
+            StringBuilder FinalStr = new StringBuilder();
+            var maxlength = s.Length > 1000 ? 1000 : s.Length;
+            var actualDelta = s.Length - maxlength;
+            if (actualDelta > 0)
+            {
+                addedVal = $"\n... {actualDelta} more characters.";
+            }
+            var newArr = (s.Substring(0, maxlength).Split('\n'));
+            if (newArr.Length > 5)
+            {
+                var arrLength = newArr.Length;
+                Array.Resize(ref newArr, maxLines);
+                string str = string.Join("\n", newArr);
+
+                Array.Resize(ref newArr, maxLines + 1);
+                newArr[maxLines] = $"\n... {arr.Length - maxLines} more lines {addedVal}";
+                return (string.Join("\n", newArr), arr.Length);
+            }
+            else
+            {
+                return ($"{s.Substring(0, maxlength)} {addedVal}", arr.Length);
+            }
+        }
     }
 
 }
